@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012, 2013 Fraunhofer Institute FOKUS
+ * Copyright (c) 2012, 2015 Fraunhofer Institute FOKUS
  *
  * This file is part of Open Data Platform.
  *
@@ -397,6 +397,18 @@ public class MetadataImpl implements Metadata, Serializable {
 	}
 
 	private Date toDate(String value) {
+		Date d = null;
+		if (value != null)
+			try {
+				d = DateUtils.parseDate(value, dateFormats);
+			} catch (DateParseException e) {
+				log.debug("parsing date: " + value, e);
+			}
+		return d;
+	}
+
+	// date obsulate 12.11.2015 msg
+	private Date toDateObsulate(String value) {
 		if (value != null) {
 			try {
 				return DateUtils.parseDate(value, dateFormats);
@@ -513,7 +525,8 @@ public class MetadataImpl implements Metadata, Serializable {
 					return contact;
 				}
 			} catch (UnknownRoleException e) {
-				log.warn("getContact:UnknownRoleException.");
+				log.warn("getContact:UnknownRoleException:" + getName()
+						+ " -> " + e.getMessage());
 			}
 		}
 		return null;
@@ -895,10 +908,14 @@ public class MetadataImpl implements Metadata, Serializable {
 	}
 
 	private void addExtras(ArrayNode extras, String key, JsonNode value) {
+
 		ObjectNode extra = OM.createObjectNode();
-		extra.put("key", key);
-		extra.put("value", value.toString());
+		if (key != null && value != null) {
+			extra.put("key", key);
+			extra.put("value", value.toString());
+		}
 		extras.add(extra);
+
 	}
 
 	@Override
