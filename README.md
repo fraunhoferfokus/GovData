@@ -3,6 +3,7 @@ Dokumentation
 
 Die Open Data Platform integriert verschiedene Komponenten zu einer vollständigen Portallösung für offene Daten. Insbesondere bindet sie die Metadaten-Katalogsoftware [CKAN](http://ckan.org) in eine JavaEE-Server-Umgebung ein.
 
+**Hinweis:** Dieses Repository wird nicht mehr für die Weiterentwicklung von GovData genutzt. Für Fragen, Anregungen und Diskussionen nutzen Sie bitte die hier zur Verfügung gestellten Repositories: https://github.com/GovDataOfficial
 
 Komponenten
 -----------
